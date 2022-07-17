@@ -31,10 +31,6 @@ function main(){
     if(getMediaType() != 2){
         var sp = createScorePanel();
 
-
-        console.log(IMDB_APPEND);
-        console.log(IMDB_APPEND_NOVIDEO);
-
         if(IMDB_APPEND){
             IMDB_APPEND.appendChild(sp);
             getRottenTomatoes(sp, getTitle());
