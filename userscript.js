@@ -262,7 +262,7 @@ function updatePanel(data){
         else{
             document.getElementById("rtCriticIcon").setAttribute("class", "icon " + data.tomatometerState);
             document.getElementById("rtCriticPercent").innerHTML = data.tomatometerScore + "%";
-            document.getElementById("rtCriticRatingsCount").innerHTML = data.criticCount;
+            document.getElementById("rtCriticRatingsCount").innerHTML = data.tomatometerCount;
         }
 
         if(!data.audienceScore){
