@@ -19,29 +19,35 @@
 
 
 window.onload = main;
-const IMDB_APPEND = document.getElementsByClassName("sc-910a7330-5 jSGBUG")[0];
-const IMDB_APPEND_IFNOVIDEO = document.getElementsByClassName("sc-910a7330-9 cnGAIC")[0];
+
 
 
 function main(){
 
     addCSS();
-    
+
+    const IMDB_APPEND = document.getElementsByClassName("sc-910a7330-5 jSGBUG")[0];
+    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-910a7330-9 cnGAIC")[0];
+
     if(getMediaType() != 2){
-        sp = createScorePanel();
+        var sp = createScorePanel();
+
+
+        console.log(IMDB_APPEND);
+        console.log(IMDB_APPEND_NOVIDEO);
 
         if(IMDB_APPEND){
             IMDB_APPEND.appendChild(sp);
+            getRottenTomatoes(sp, getTitle());
         }
-        else if (IMDB_APPEND_IFNOVIDEO){
-            IMDB_APPEND_IFNOVIDEO.appendChild(sp);
+        else if (IMDB_APPEND_NOVIDEO){
+            IMDB_APPEND_NOVIDEO.appendChild(sp);
+            getRottenTomatoes(sp, getTitle());
         }
         else
         {
             console.log("Failed to attach score panel.")
         }
-
-        getRottenTomatoes(sp, getTitle());
     }
 
 }
@@ -61,10 +67,10 @@ function getTitle(){
 function getMediaType(){
 
     `
-        Returns:
+        Return
         1 for tv movie
         2 for tv series
-        3 for anything else
+        0 for anything else
     `
 
     var type = document.getElementsByClassName("ipc-inline-list ipc-inline-list--show-dividers")[0].firstChild.innerHTML;
@@ -164,9 +170,10 @@ function getRottenTomatoes(){
 
     const y_threshold = 2;
     var year;
-    var search_url;      
+    var search_url;
 
 
+    title = getTitle();
     title = title.replace(/& |\[|\]|"|:|, |-|\./g, "");                     //Strip special chars
     title = title.replace(/²/, "2");                                        //e.g. [Rec]²
     title = title.replace(/³/g, "3");                                       //e.g. Alien³
@@ -185,7 +192,7 @@ function getRottenTomatoes(){
 
     console.log("Requesting " + search_url);
 
-          
+
 
     GM_xmlhttpRequest({
         method: "GET",
@@ -201,7 +208,7 @@ function getRottenTomatoes(){
                 for(let i = 0; i < results.length; i++){
 
                     if(parseInt(results[i].getAttribute("releaseyear")) > year - y_threshold && parseInt(results[i].getAttribute("releaseyear")) < year + y_threshold){
-                        
+
                         console.log("MOVIE:    " + results[i].getElementsByTagName("a")[1].innerHTML.trim() +
                                     "\nYEAR:     " + results[i].getAttribute("releaseyear") +
                                     "\nCAST:     " + results[i].getAttribute("cast") +
@@ -231,7 +238,7 @@ function getScores(url){
             var scoreJSON = (JSON.parse(parsedPage.getElementById("score-details-json").innerHTML)).scoreboard;
 
             if(scoreJSON){
-                if(rt.getElementsByClassName("what-to-know__section-body")[0]){
+                if(parsedPage.getElementsByClassName("what-to-know__section-body")[0]){
                     scoreJSON.consensus = parsedPage.getElementsByClassName("what-to-know__section-body")[0].children[0].innerHTML;
                 }
                 else{
@@ -246,7 +253,7 @@ function getScores(url){
     });
 }
 
-updatePanel(data){
+function updatePanel(data){
 
     if(data){
         document.getElementById("rtTitle").innerHTML = data.title;
@@ -262,7 +269,7 @@ updatePanel(data){
         }
 
         if(!data.audienceScore){
-            document.getElementById("rtAudiencePercent").innerHTML = "<p class='rtAudienceNotAvailable'>Coming soon</p>";            
+            document.getElementById("rtAudiencePercent").innerHTML = "<p class='rtAudienceNotAvailable'>Coming soon</p>";
             document.getElementById("rtAudienceRatingsCount").innerHTML = "Not yet available";
         }
         else{
@@ -279,7 +286,7 @@ updatePanel(data){
     }
 }
 
-setHref(url){
+function setHref(url){
     document.getElementById("rtLink").setAttribute("href", url);
 
     document.getElementById("rtCriticLink").setAttribute("href", url + "#contentReviews");
