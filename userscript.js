@@ -21,7 +21,6 @@
 window.onload = main;
 
 
-
 function main(){
 
     addCSS();
@@ -64,6 +63,7 @@ function getTitle(){
     }
 }
 
+
 function getMediaType(){
 
     `
@@ -85,6 +85,7 @@ function getMediaType(){
         return 0;
     }
 }
+
 
 function createScorePanel(){
     panel = document.createElement("div");
@@ -161,6 +162,7 @@ function createScorePanel(){
     return panel;
 }
 
+
 function getRottenTomatoes(){
 
     // getRottenTomatoes(sp, title)
@@ -191,8 +193,6 @@ function getRottenTomatoes(){
     }
 
     console.log("Requesting " + search_url);
-
-
 
     GM_xmlhttpRequest({
         method: "GET",
@@ -226,6 +226,7 @@ function getRottenTomatoes(){
     });
 }
 
+
 function getScores(url){
 
     GM_xmlhttpRequest({
@@ -252,6 +253,7 @@ function getScores(url){
         }
     });
 }
+
 
 function updatePanel(data){
 
@@ -286,12 +288,14 @@ function updatePanel(data){
     }
 }
 
+
 function setHref(url){
     document.getElementById("rtLink").setAttribute("href", url);
 
     document.getElementById("rtCriticLink").setAttribute("href", url + "#contentReviews");
     document.getElementById("rtAudienceLink").setAttribute("href", url + "#audience_reviews");
 }
+
 
 function addCSS(){
     var style = document.createElement("style");
