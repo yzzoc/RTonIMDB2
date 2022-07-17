@@ -44,7 +44,6 @@ function main(){
             console.log("Failed to attach score panel.")
         }
     }
-
 }
 
 
