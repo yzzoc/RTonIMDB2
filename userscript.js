@@ -278,8 +278,8 @@ function updatePanel(data){
         }
     }
     else{
-        this.set_title("ERROR");
-        this.set_consensus("An error occurred.");
+        document.getElementById("rtTitle").innerHTML = "ERROR";
+        document.getElementById("rtCriticsConsensus").innerHTML = "An error occurred.";
     }
 }
 
