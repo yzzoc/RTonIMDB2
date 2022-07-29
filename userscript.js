@@ -10,14 +10,6 @@
 // @run-at document-start
 // ==/UserScript==
 
-// Useful debug titles
-// [Rec]²
-// https://www.imdb.com/title/tt12971924/ - The Call, The Call, The Call of the Wild
-// https://www.imdb.com/title/tt1395135 - Occult
-// https://www.imdb.com/title/tt4935372/ - The Devil's Candy (IMDb 2015, RT 2016)
-// https://www.imdb.com/title/tt0084488 - Permanent Vactation - Doesn't load
-
-
 window.onload = main;
 
 
@@ -25,8 +17,8 @@ function main(){
 
     addCSS();
 
-    const IMDB_APPEND = document.getElementsByClassName("sc-910a7330-5 jSGBUG")[0];
-    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-910a7330-9 cnGAIC")[0];
+    const IMDB_APPEND = document.getElementsByClassName("sc-999e79a1-5 fkyoVO")[0];
+    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-999e79a1-9 dNkaEa")[0];
 
     if(getMediaType() != 2){
         var sp = createScorePanel();
