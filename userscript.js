@@ -60,7 +60,7 @@ function getMediaType(){
         0 for anything else
     `
 
-    var type = document.getElementsByClassName("ipc-inline-list ipc-inline-list--show-dividers")[0].firstChild.innerHTML;
+    var type = document.getElementsByClassName("ipc-inline-list ipc-inline-list--show-dividers")[1].firstChild.innerHTML;
 
     if(type === "TV Movie"){
         return 1;
