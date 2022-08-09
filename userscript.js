@@ -17,7 +17,7 @@ function main(){
 
     addCSS();
 
-    const IMDB_APPEND = document.getElementsByClassName("sc-999e79a1-5 fkyoVO")[0];
+    const IMDB_APPEND = document.getElementsByClassName("sc-2a827f80-5 gcCaSg")[0];
     const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-2a827f80-9 behfPw")[0];
 
     if(getMediaType() != 2){
