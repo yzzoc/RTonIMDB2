@@ -17,8 +17,8 @@ function main(){
 
     addCSS();
 
-    const IMDB_APPEND = document.getElementsByClassName("sc-2a827f80-5 gcCaSg")[0];
-    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-2a827f80-9 behfPw")[0];
+    const IMDB_APPEND = document.getElementsByClassName("sc-7643a8e3-5 dEAmiF")[0];
+    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-7643a8e3-9 cSAgIR")[0];
 
     if(getMediaType() != 2){
         var sp = createScorePanel();
