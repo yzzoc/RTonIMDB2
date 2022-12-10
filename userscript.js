@@ -19,8 +19,7 @@ function main(){
     addCSS();
 
     // Get the element where the score panel will be appended
-    const IMDB_APPEND = document.getElementsByClassName("sc-9497c711-5 gOjyyH")[0];
-    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-9497c711-9 cyCcQL")[0];
+    const IMDB_APPEND = document.querySelector("ul[data-testid=reviewContent-all-reviews]").parentElement;
 
     // Check if the media is a TV series (we don't want to display the score panel for TV movies)
     if(getMediaType() != 2){
@@ -31,10 +30,6 @@ function main(){
         // Append the score panel to the page
         if(IMDB_APPEND){
             IMDB_APPEND.appendChild(sp);
-            getRottenTomatoes(sp, getTitle());
-        }
-        else if (IMDB_APPEND_NOVIDEO){
-            IMDB_APPEND_NOVIDEO.appendChild(sp);
             getRottenTomatoes(sp, getTitle());
         }
         else
