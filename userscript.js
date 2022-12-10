@@ -4,7 +4,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      2
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
-// @match        https://www.imdb.com/title/*
+// @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
 // @connect      rottentomatoes.com
 // @run-at document-start
