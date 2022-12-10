@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Rotten Tomatoes on IMDB 2
-// @author       Cozzy
+// @author       cozzy
 // @namespace    http://tampermonkey.net/
 // @version      2
-// @description  22/07/17 - Add rotten tomatoes critic conesesus and scores to imdb
+// @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        https://www.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
 // @connect      rottentomatoes.com
@@ -17,8 +17,8 @@ function main(){
 
     addCSS();
 
-    const IMDB_APPEND = document.getElementsByClassName("sc-7643a8e3-5 dEAmiF")[0];
-    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-7643a8e3-9 cSAgIR")[0];
+    const IMDB_APPEND = document.getElementsByClassName("sc-9497c711-5 gOjyyH")[0];
+    const IMDB_APPEND_NOVIDEO = document.getElementsByClassName("sc-9497c711-9 cyCcQL")[0];
 
     if(getMediaType() != 2){
         var sp = createScorePanel();
@@ -75,7 +75,7 @@ function getMediaType(){
 
 
 function createScorePanel(){
-    panel = document.createElement("div");
+    var panel = document.createElement("div");
     panel.setAttribute("id", "rtScorePanel");
 
     const loadingIcon = `
@@ -159,10 +159,8 @@ function getRottenTomatoes(){
 
     const y_threshold = 2;
     var year;
-    var search_url;
 
-
-    title = getTitle();
+    var title = getTitle();
     title = title.replace(/& |\[|\]|"|:|, |-|\./g, "");                     //Strip special chars
     title = title.replace(/²/, "2");                                        //e.g. [Rec]²
     title = title.replace(/³/g, "3");                                       //e.g. Alien³
@@ -339,6 +337,7 @@ function addCSS(){
         .certified-fresh, .certified_fresh{
             background: url(https://www.rottentomatoes.com/assets/pizza-pie/images/icons/global/cf-lg.3c29eff04f2.png) no-repeat;
             background-size: cover;
+            
         }
 
         .fresh{
