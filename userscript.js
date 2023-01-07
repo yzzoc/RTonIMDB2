@@ -166,7 +166,7 @@ function createScorePanel(){
 // Make a request to Rotten Tomatoes to get the critic consensus and score
 function getRottenTomatoes(){
 
-     // getRottenTomatoes(sp, title)
+    // getRottenTomatoes(sp, title)
     // Takes a scorepanel object and title
     // GETs a search result for title + director, checks the results for a movie within y_threshold years.
     // If a result is found, calls getScores
@@ -194,11 +194,11 @@ function getRottenTomatoes(){
     if(!getMediaType()){
         const director = (document.getElementsByClassName("ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link")[0].innerHTML.replace(/ /g, "%20"))
         search_url += "%20" + director;
-        year = parseInt(document.getElementsByClassName("sc-8c396aa2-1 WIUyh")[0].innerHTML);
+        year = parseInt(document.getElementsByClassName("sc-8c396aa2-2 jwaBvf")[0].innerHTML);
     }
     // If the media is a TV series, get the release year from the first season
     else {
-        year = parseInt(document.getElementsByClassName("sc-8c396aa2-1 WIUyh")[0].innerHTML.substring(0,4));
+        year = parseInt(document.getElementsByClassName("sc-8c396aa2-2 jwaBvf")[0].innerHTML.substring(0,4));
     }
 
     // Log the search URL
