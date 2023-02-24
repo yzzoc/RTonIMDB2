@@ -288,28 +288,28 @@ function updatePanel(data){
         document.getElementById("rtCriticsConsensus").innerHTML = data.consensus;
 
         // If the critic score is not available, update the score panel with "Tomatometer Not Yet Available"
-        if(!data.tomatometerScore){
+        if(!data.tomatometerScore.value){
             document.getElementById("rtCriticPercent").innerHTML = "<div class='rtCriticNotAvailable'>Tomatometer <br> Not Yet Available</div>";
         }
         else{
             // If the critic score is available, update the score panel with the score and number of ratings
-            document.getElementById("rtCriticIcon").setAttribute("class", "icon " + data.tomatometerState);
-            document.getElementById("rtCriticPercent").innerHTML = data.tomatometerScore + "%";
-            document.getElementById("rtCriticRatingsCount").innerHTML = data.tomatometerCount;
+            document.getElementById("rtCriticIcon").setAttribute("class", "icon " + data.tomatometerScore.state);
+            document.getElementById("rtCriticPercent").innerHTML = data.tomatometerScore.value + "%";
+            document.getElementById("rtCriticRatingsCount").innerHTML = data.tomatometerScore.reviewCount;
         }
 
         // If the audience score is not available, update the score panel with "Coming Soon"
-        if(!data.audienceScore){
+        if(!data.audienceScore.value){
             document.getElementById("rtAudiencePercent").innerHTML = "<p class='rtAudienceNotAvailable'>Coming soon</p>";
             document.getElementById("rtAudienceRatingsCount").innerHTML = "Not yet available";
         }
         else{
             // If the audience score is available, update the score panel with the score and number of ratings
-            if(data.audienceState){
-                document.getElementById("rtAudienceIcon").setAttribute("class", "icon " + data.audienceState);
+            if(data.audienceScore.state){
+                document.getElementById("rtAudienceIcon").setAttribute("class", "icon " + data.audienceScore.state);
             }
-            document.getElementById("rtAudiencePercent").innerHTML = data.audienceScore + "%";
-            document.getElementById("rtAudienceRatingsCount").innerHTML = data.audienceCount;
+            document.getElementById("rtAudiencePercent").innerHTML = data.audienceScore.value + "%";
+            document.getElementById("rtAudienceRatingsCount").innerHTML = data.audienceScore.ratingCount;
         }
     }
     else{
