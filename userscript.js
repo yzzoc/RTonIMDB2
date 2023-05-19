@@ -255,7 +255,7 @@ function getScores(url){
             var doc = parser.parseFromString(response.responseText, "text/html");
 
             // Get the JSON object containing the critic scores
-            var scoreJSON = (JSON.parse(doc.getElementById("score-details-json").innerHTML)).scoreboard;
+            var scoreJSON = (JSON.parse(doc.getElementById("scoreDetails").innerHTML)).scoreboard;
 
             // If the scoreJSON object exists, get the critic consensus
             if(scoreJSON){
