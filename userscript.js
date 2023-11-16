@@ -194,11 +194,11 @@ function getRottenTomatoes(){
     if(!getMediaType()){
         const director = (document.getElementsByClassName("ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link")[0].innerHTML.replace(/ /g, "%20"))
         search_url += "%20" + director;
-        year = parseInt(document.getElementsByClassName("sc-afe43def-4 kdXikI")[0].children[0].innerText);
+        year = parseInt(document.getElementsByClassName("sc-7f1a92f5-4 kIoyyw")[0].children[0].innerText);
     }
     // If the media is a TV series, get the release year from the first season
     else {
-        year = parseInt(document.getElementsByClassName("sc-afe43def-4 kdXikI")[0].children[0].innerText.substring(0,4));
+        year = parseInt(document.getElementsByClassName("sc-7f1a92f5-4 kIoyyw")[0].children[0].innerText.substring(0,4));
     }
 
     // Log the search URL
