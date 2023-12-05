@@ -2,11 +2,12 @@
 // @name         Rotten Tomatoes on IMDB 2
 // @author       cozzy
 // @namespace    http://tampermonkey.net/
-// @version      2
+// @version      2.001
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
 // @connect      rottentomatoes.com
+// @updateURL   [https://raw.githubusercontent.com/yzzoc/RTonIMDB2/main/userscript.js]
 // @run-at document-start
 // ==/UserScript==
 
