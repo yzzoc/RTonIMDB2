@@ -2,12 +2,13 @@
 // @name         Rotten Tomatoes on IMDB 2
 // @author       cozzy
 // @namespace    http://tampermonkey.net/
-// @version      2.002
+// @version      2.003
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
 // @connect      rottentomatoes.com
-// @updateURL   [https://raw.githubusercontent.com/yzzoc/RTonIMDB2/main/userscript.js]
+// @downloadURL  https://raw.githubusercontent.com/yzzoc/RTonIMDB2/main/userscript.js
+// @updateURL    https://raw.githubusercontent.com/yzzoc/RTonIMDB2/main/userscript.js
 // @run-at document-start
 // ==/UserScript==
 
@@ -195,11 +196,11 @@ function getRottenTomatoes(){
     if(!getMediaType()){
         const director = (document.getElementsByClassName("ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link")[0].innerHTML.replace(/ /g, "%20"))
         search_url += "%20" + director;
-        year = parseInt(document.getElementsByClassName("sc-82970163-2 enBUqP")[0].children[0].innerText);
+        year = parseInt(document.getElementsByClassName("sc-d8941411-2 cdJsTz")[0].children[0].innerText);
     }
     // If the media is a TV series, get the release year from the first season
     else {
-        year = parseInt(document.getElementsByClassName("sc-82970163-2 enBUqP")[0].children[0].innerText.substring(0,4));
+        year = parseInt(document.getElementsByClassName("sc-d8941411-2 cdJsTz")[0].children[0].innerText.substring(0,4));
     }
 
     // Log the search URL
