@@ -2,7 +2,7 @@
 // @name         Rotten Tomatoes on IMDB 2
 // @author       cozzy
 // @namespace    http://tampermonkey.net/
-// @version      2.005
+// @version      2.1
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
@@ -137,7 +137,7 @@ function createScorePanel(){
             </div>
             <div id='rtCriticsConsensus'>` + loadingIcon + `</div>
 
-            <div class='rtCriticScore'>
+            <div class='rtcriticsScore'>
                 <a id='rtCriticLink'>
                     <span id='rtCriticIcon'></span>
                     <h1 class='rtPercent' id='rtCriticPercent'></h1>
@@ -151,7 +151,7 @@ function createScorePanel(){
                 </a>
             </div>
 
-            <div class='rtCriticScore'>
+            <div class='rtcriticsScore'>
                 <strong class='rtRatingsSmallText'>Total Count: </strong>
                 <strong class='rtRatingsSmallText' id='rtCriticRatingsCount'>N/A</strong>
             </div>
@@ -257,14 +257,16 @@ function getScores(url){
             var doc = parser.parseFromString(response.responseText, "text/html");
 
             // Get the JSON object containing the critic scores
-            var scoreJSON = (JSON.parse(doc.getElementById("scoreDetails").innerHTML)).scoreboard;
-
+            var scoreJSON = (JSON.parse(doc.getElementById("media-scorecard-json").innerHTML));
             // If the scoreJSON object exists, get the critic consensus
             if(scoreJSON){
-                if(doc.getElementsByClassName("what-to-know__section-body")[0]){
-                    scoreJSON.consensus = doc.getElementsByClassName("what-to-know__section-body")[0].children[0].innerHTML;
+                scoreJSON.title = doc.querySelector('[slot="titleIntro"]').innerText
+                
+
+                if(doc.getElementById("critics-consensus")){
+                    scoreJSON.consensus = doc.getElementById("critics-consensus").children[1].innerText;
                 }
-                else{
+                else{ 
                     // If there is no consensus, set it to "No consensus"
                     scoreJSON.consensus = "<em>No consensus.</em>"
                 }
@@ -290,28 +292,28 @@ function updatePanel(data){
         document.getElementById("rtCriticsConsensus").innerHTML = data.consensus;
 
         // If the critic score is not available, update the score panel with "Tomatometer Not Yet Available"
-        if(!data.tomatometerScore.value){
+        if(!data.criticsScore.score){
             document.getElementById("rtCriticPercent").innerHTML = "<div class='rtCriticNotAvailable'>Tomatometer <br> Not Yet Available</div>";
         }
         else{
             // If the critic score is available, update the score panel with the score and number of ratings
-            document.getElementById("rtCriticIcon").setAttribute("class", "icon " + data.tomatometerScore.state);
-            document.getElementById("rtCriticPercent").innerHTML = data.tomatometerScore.value + "%";
-            document.getElementById("rtCriticRatingsCount").innerHTML = data.tomatometerScore.reviewCount;
+            let state = scoreToState(data.criticsScore.score, data.criticsScore.certified, critic=true);
+            document.getElementById("rtCriticIcon").setAttribute("class", "icon " + state);
+            document.getElementById("rtCriticPercent").innerHTML = data.criticsScore.score + "%";
+            document.getElementById("rtCriticRatingsCount").innerHTML = data.criticsScore.reviewCount;
         }
 
         // If the audience score is not available, update the score panel with "Coming Soon"
-        if(!data.audienceScore.value){
+        if(!data.audienceScore.score){
             document.getElementById("rtAudiencePercent").innerHTML = "<p class='rtAudienceNotAvailable'>Coming soon</p>";
             document.getElementById("rtAudienceRatingsCount").innerHTML = "Not yet available";
         }
         else{
             // If the audience score is available, update the score panel with the score and number of ratings
-            if(data.audienceScore.state){
-                document.getElementById("rtAudienceIcon").setAttribute("class", "icon " + data.audienceScore.state);
-            }
-            document.getElementById("rtAudiencePercent").innerHTML = data.audienceScore.value + "%";
-            document.getElementById("rtAudienceRatingsCount").innerHTML = data.audienceScore.ratingCount;
+            let state = scoreToState(data.audienceScore.score, certified=false, critic=false);
+            document.getElementById("rtAudienceIcon").setAttribute("class", "icon " + state);
+            document.getElementById("rtAudiencePercent").innerHTML = data.audienceScore.score + "%";
+            document.getElementById("rtAudienceRatingsCount").innerHTML = data.audienceScore.reviewCount;
         }
     }
     else{
@@ -321,7 +323,30 @@ function updatePanel(data){
     }
 }
 
+function scoreToState(score, certified, critic){
 
+    let score_int = parseInt(score);
+
+    if(critic){
+        if(score_int > 50 && certified == "true"){
+            return "certified-fresh";
+        }
+        else if (score_int > 50){
+            return "fresh";
+        }
+        else{
+            return "rotten";
+        }
+    }
+    else{
+        if(score_int > 50){
+            return "upright";
+        }
+        else{
+            return "spilled";
+        }
+    }
+}
 
 // Set the URL of the movie or TV series on scorepanel elements
 function setHref(url){
@@ -365,7 +390,7 @@ function addCSS(){
             min-height: 60px;
         }
 
-        .rtCriticScore {
+        .rtcriticsScore {
             text-align: right;
             padding: 0 20px 0 10px;
         }
