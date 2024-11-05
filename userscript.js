@@ -2,7 +2,7 @@
 // @name         Rotten Tomatoes on IMDB 2
 // @author       cozzy
 // @namespace    http://tampermonkey.net/
-// @version      2.3
+// @version      2.31
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
@@ -260,7 +260,7 @@ function getScores(url){
             var scoreJSON = (JSON.parse(doc.getElementById("media-scorecard-json").innerHTML));
             // If the scoreJSON object exists, get the critic consensus
             if(scoreJSON){
-                scoreJSON.title = doc.querySelector('rttext[slot="title"]').innerText
+                scoreJSON.title = doc.querySelector('rt-text[slot="title"]').innerText
 
 
                 if(doc.getElementById("critics-consensus")){
