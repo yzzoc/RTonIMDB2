@@ -2,7 +2,7 @@
 // @name         Rotten Tomatoes on IMDB 2
 // @author       cozzy
 // @namespace    http://tampermonkey.net/
-// @version      2.1
+// @version      2.2
 // @description  Add rotten tomatoes critic conesesus and scores to imdb
 // @match        *.imdb.com/title/*
 // @grant        GM_xmlhttpRequest
@@ -260,13 +260,13 @@ function getScores(url){
             var scoreJSON = (JSON.parse(doc.getElementById("media-scorecard-json").innerHTML));
             // If the scoreJSON object exists, get the critic consensus
             if(scoreJSON){
-                scoreJSON.title = doc.querySelector('[slot="titleIntro"]').innerText
-                
+                scoreJSON.title = doc.querySelector('[slot="title"]').innerText
+
 
                 if(doc.getElementById("critics-consensus")){
                     scoreJSON.consensus = doc.getElementById("critics-consensus").children[1].innerText;
                 }
-                else{ 
+                else{
                     // If there is no consensus, set it to "No consensus"
                     scoreJSON.consensus = "<em>No consensus.</em>"
                 }
@@ -415,7 +415,7 @@ function addCSS(){
         .certified-fresh, .certified_fresh{
             background: url(https://www.rottentomatoes.com/assets/pizza-pie/images/icons/global/cf-lg.3c29eff04f2.png) no-repeat;
             background-size: cover;
-            
+
         }
 
         .fresh{
